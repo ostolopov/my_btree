@@ -1,0 +1,3 @@
+/Users/egorbaranov/Desktop/my_btree/cmake-build-debug/CMakeFiles/my_btree.dir
+/Users/egorbaranov/Desktop/my_btree/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/egorbaranov/Desktop/my_btree/cmake-build-debug/CMakeFiles/rebuild_cache.dir
