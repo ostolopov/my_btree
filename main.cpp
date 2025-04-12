@@ -42,7 +42,7 @@ int main() {
                 broot = btree_delete(broot, data);
                 break;
             case 5:
-
+                print_tree_graph(broot, "tree.dot");
                 break;
             case 6:
 

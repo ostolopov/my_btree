@@ -2,6 +2,7 @@
 #define MY_BTREE_FUNCS_H
 
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -39,4 +40,6 @@ BTree *btree_delete (BTree *node, int data);
 BTree *BTree_search (BTree *node, int data);
 void btree_destroy(BTree* node);
 
+void writeNodes(BTree* current, int parentID, ofstream& dotFile) ;
+void print_tree_graph(BTree* node, char* filename);
 #endif

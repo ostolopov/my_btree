@@ -153,3 +153,59 @@ void btree_destroy(BTree* node) {
     delete node;
 }
 
+
+
+
+
+
+
+// Рекурсивная функция для записи узлов и связей в DOT-файл
+void writeNodes(BTree* current, int parentID, ofstream& dotFile) {
+    if (current == nullptr) return;
+
+    int currentID = current->data; // Используем значение узла как его ID
+
+    // Записываем текущий узел
+    dotFile << "    " << currentID << " [label=\"" << currentID << "\"];\n";
+
+    // Если есть родительский узел, записываем связь
+    if (parentID != -1) {
+        dotFile << "    " << parentID << " -> " << currentID << ";\n";
+    }
+
+    // Рекурсивно записываем потомков
+    writeNodes(current->left, currentID, dotFile);
+    writeNodes(current->right, currentID, dotFile);
+}
+
+// Функция для генерации графа дерева и преобразования его в PNG
+void print_tree_graph(BTree* node, char* filename) {
+    // Открываем файл для записи
+    ofstream dotFile(filename);
+    if (!dotFile.is_open()) {
+        cerr << "Ошибка: не удалось открыть файл для записи." << endl;
+        return;
+    }
+
+    // Записываем заголовок DOT-файла
+    dotFile << "digraph Tree {\n";
+    dotFile << "    node [shape=circle, fontname=Arial, fontsize=12];\n";
+
+    // Начинаем запись с корня
+    writeNodes(node, -1, dotFile);
+
+    // Закрываем DOT-файл
+    dotFile << "}\n";
+    dotFile.close();
+
+    cout << "DOT-файл успешно создан: " << filename << endl;
+
+    // Преобразуем DOT-файл в PNG
+    string outputImage = string(filename) + ".png"; // Добавляем расширение .png
+    string command = "dot -Tpng " + string(filename) + " -o " + outputImage;
+    if (system(command.c_str()) == 0) {
+        cout << "Изображение успешно создано: " << outputImage << endl;
+    } else {
+        cerr << "Ошибка: не удалось создать изображение. Убедитесь, что Graphviz установлен." << endl;
+    }
+}
